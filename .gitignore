@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Unused
+images/rad_det_architecture.webp
+
+# TypeScript compiled output
+*.js.map
+
+# macOS
+.DS_Store
+
+# Editor directories
+.vscode/
+.idea/
+
+# Logs
+*.log

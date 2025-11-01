@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Janco's Porfolio">
+    <title>Janco's Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+
+            <div class="nav-brand">
+                <a href="#home">JVE Portfolio</a>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Janco van Eeden
+            </h1>
+            <p class="hero-subtitle">
+
+                Computer Vision | Tech Enthusiast | Lifelong Learner
+            </p>
+            <div class="hero-buttons">
+
+                <a href="#projects" class="btn btn-primary">My Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="arrow-down"></div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+
+            <h2 class="section-title">About Me</h2>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I have completed a Bachelor of Computer Engineering focusing on a real-world application
+                        involving machine learning and computer vision optimized for resource-constrained
+                        microcontrollers. I am motivated to learn, study and apply engineering techniques as the field
+                        progresses in the future.
+                    </p>
+                    <p>
+                        I am currently pursuing a Master of Engineering in the intelligent systems research group. The
+                        research aims to develop innovative algorithms in the field of computer vision, specifically 3D
+                        object detection and novel view synthesis pipelines.
+                    </p>
+                </div>
+
+                <div class="about-image">
+                    <img src="images/pfp.jpg" alt="Profile picture"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+
+                    <div class="image-placeholder">
+                        <p>Placeholder</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section section-alt">
+
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <p class="section-description">
+                Technologies and tools I've worked with
+            </p>
+
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icons-row">
+                        <div class="skill-icon">
+                            <img src="images/python.svg" alt="Python logo" class="skill-logo">
+                        </div>
+                        <div class="skill-icon">
+                            <img src="images/c-plusplus.svg" alt="C++ logo" class="skill-logo">
+                        </div>
+                    </div>
+                    <h3>Programming</h3>
+                    <p>Python, C/C++, Java, Delphi, ASM, SQL, Swift</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="25"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icons-row">
+                        <div class="skill-icon">
+                            <img src="images/pytorch.svg" alt="PyTorch logo" class="skill-logo">
+                        </div>
+                        <div class="skill-icon">
+                            <img src="images/git.svg" alt="Git logo" class="skill-logo">
+                        </div>
+                        <div class="skill-icon">
+                            <img src="images/docker.svg" alt="Docker logo" class="skill-logo">
+                        </div>
+                    </div>
+                    <h3>Frameworks</h3>
+                    <p>PyTorch, VS Code, Git, Docker, Qt, Tensorflow</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="50"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icons-row">
+                        <div class="skill-icon">
+                            <img src="images/microcontroller.svg" alt="Microcontroller logo" class="skill-logo">
+                        </div>
+                        <div class="skill-icon">
+                            <img src="images/camera.svg" alt="Camera logo" class="skill-logo">
+                        </div>
+                    </div>
+                    <h3>Hardware</h3>
+                    <p>Microcontrollers, FPGAs, actuators, sensors</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="75"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <p class="section-description">
+                A collection of projects I've built while learning
+            </p>
+
+
+            <div class="project-card">
+                <div class="project-media-grid">
+                    <div class="project-video-main">
+                        <video controls poster="images/video-poster.jpg" class="project-video-player">
+                            <source src="videos/smart_cam_example.webm" type="video/webm">
+                            Browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <div class="project-images-row">
+                        <div class="project-thumbnail">
+                            <img src="images/classroom_1.png" alt="Project image 1"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <div class="image-placeholder-small">
+                                <p>Image 1</p>
+                            </div>
+                        </div>
+                        <div class="project-thumbnail">
+                            <img src="images/classroom_2.jpg" alt="Project image 2"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <div class="image-placeholder-small">
+                                <p>Image 2</p>
+                            </div>
+                        </div>
+                        <div class="project-thumbnail">
+                            <img src="images/classroom_3.jpg" alt="Project image 3"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <div class="image-placeholder-small">
+                                <p>Image 3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-content">
+                    <h3>Real-time Autonomous Smart Camera for Lectures</h3>
+                    <p>A fully autonomous smart camera designed to detect and track lecturers during presentations.
+                        Computer vision algorithms was implemented from scratch (only NumPy) to run on embedded systems.
+                    </p>
+                    <div class="project-section">
+                        <div class="project-tags">
+                            <span class="tag">Quad-core Cortex-A73 2GB</span>
+                            <span class="tag">STM32</span>
+                            <span class="tag">Analog Servo Motors</span>
+                            <span class="tag">5MP RGB Camera</span>
+                        </div>
+                    </div>
+                    <div class="project-section">
+                        <div class="project-software-grid">
+                            <div class="software-item">
+                                <img src="images/python.svg" alt="Python logo" class="software-logo">
+                            </div>
+                            <div class="software-item">
+                                <img src="images/c.svg" alt="C logo" class="software-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/rad_det_architecture_placeholder.webp" alt="Project 2 screenshot"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <div class="image-placeholder">
+                        <p>Coming soon...</p>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3>3D Object Detection Using Discrete Radiance Field Representations via Sparse-Dense Convolutional
+                        Neural Networks</h3>
+                    <p>
+                        Developed a novel 3D object detection method using discrete radiance field representations
+                        (NeRF, 3DGS, SVRaster) and sparse-dense convolutional neural networks.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">6GB VRAM</span>
+                        <span class="tag">CUDA 11</span>
+                        <span class="tag">PyTorch 2.1</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/jancoveeden" class="btn btn-small btn-outline" target="_blank">Source Code</a>
+                    </div>
+                    <div class="project-section">
+                        <div class="project-software-grid">
+                            <div class="software-item">
+                                <img src="images/python.svg" alt="Python logo" class="software-logo">
+                            </div>
+                            <div class="software-item">
+                                <img src="images/pytorch.svg" alt="PyTorch logo" class="software-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-description">
+                Have a question? Feel free to reach out!
+            </p>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <img src="images/gmail.svg" alt="Mail logo" class="mail-logo">
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:janco.vaneeden@gmail.com">janco.vaneeden@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <img src="images/linkedin.svg" alt="LinkedIn logo" class="linkedin-logo">
+                        </div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <a href="https://www.linkedin.com/in/jancoveeden-9818a8231/" target="_blank">jancoveeden</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <img src="images/github.svg" alt="GitHub logo" class="github-logo">
+                        </div>
+                        <div>
+                            <h4>GitHub</h4>
+                            <a href="https://github.com/jancoveeden" target="_blank">jancoveeden</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 J van Eeden. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/jancoveeden" target="_blank" aria-label="GitHub">GitHub</a>
+                    <a href="https://www.linkedin.com/in/jancoveeden-9818a8231/" target="_blank"
+                        aria-label="LinkedIn">LinkedIn</a>
+                    <a href="https://x.com/jancoveeden" target="_blank" aria-label="Twitter">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">
+        ↑
+    </button>
+
+</body>
+
+</html>
