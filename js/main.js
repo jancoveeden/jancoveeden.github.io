@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all features
     initNavigation();
     initScrollEffects();
-    initInteractiveTools();
-    initContactForm();
     initSkillBars();
 });
 
