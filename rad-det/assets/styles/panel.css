@@ -679,6 +679,35 @@ body {
         pointer-events: none;
         transition: opacity 0.3s ease;
     }
+    
+    /* Move reset and bbox toggle buttons to bottom right on mobile */
+    #reset-button,
+    #bbox-toggle-button {
+        position: fixed;
+        z-index: 1000;
+    }
+    
+    #reset-button {
+        bottom: 80px;
+        right: 15px;
+        top: auto;
+        left: auto;
+    }
+    
+    #bbox-toggle-button {
+        bottom: 20px;
+        right: 15px;
+        top: auto;
+        left: auto;
+    }
+    
+    /* Hide reset and bbox toggle buttons when info panel is open */
+    body:has(#info-panel.open) #reset-button,
+    body:has(#info-panel.open) #bbox-toggle-button {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
 
     .info-value-mobile {
         display: inline;
@@ -716,10 +745,11 @@ body {
         height: 44px;
     }
     
+    /* Button sizing for mobile - reset and bbox are now positioned separately */
     #reset-button,
     #bbox-toggle-button {
-        width: 44px;
-        height: 44px;
+        width: 50px;
+        height: 50px;
     }
     
     #scene-header {
