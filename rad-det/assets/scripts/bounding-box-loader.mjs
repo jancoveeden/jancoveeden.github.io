@@ -89,6 +89,24 @@ class BoundingBoxLoader extends Script {
         this.app.mouse.on('mousedown', (event) => {
             if (event.button !== 0) return; // Only left clicks
             
+            // Check if click is on a UI button or UI element - prioritize UI over bounding boxes
+            const clickTarget = event.event?.target || document.elementFromPoint(event.x, event.y);
+            if (clickTarget && (
+                clickTarget.tagName === 'BUTTON' ||
+                clickTarget.closest('button') ||
+                clickTarget.closest('#scene-header') ||
+                clickTarget.closest('#info-button') ||
+                clickTarget.closest('#home-button') ||
+                clickTarget.closest('#fullscreen-button') ||
+                clickTarget.closest('#reset-button') ||
+                clickTarget.closest('#bbox-toggle-button') ||
+                clickTarget.closest('#scene-selector-button') ||
+                clickTarget.closest('#info-panel') ||
+                clickTarget.closest('#scene-selector-modal')
+            )) {
+                return; // Skip bounding box interaction if clicking on UI
+            }
+            
             // Skip if no boxes loaded yet
             if (!this.boxEntities || this.boxEntities.length === 0) return;
             
