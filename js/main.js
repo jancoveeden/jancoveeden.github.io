@@ -7,6 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
     initSkillBars();
 });
 
+/* ============================================
+   IMAGE MODAL
+   ============================================ */
+function openModal(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modal.style.display = 'block';
+    modalImg.src = imageSrc;
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.style.display = 'none';
+}
+
 
 /* ============================================
    NAVIGATION

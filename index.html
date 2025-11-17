@@ -152,6 +152,43 @@
                 A collection of projects I've built while learning
             </p>
 
+            <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <video autoplay loop muted playsinline class="project-video-player">
+                        <source src="videos/rad_det_viewer_preview.webm" type="video/webm">
+                        Browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="project-content">
+                    <h3>
+                        3D Object Detection Using Discrete Radiance Field Representations via Sparse-Dense Convolutional Neural Networks
+                    </h3>
+                    <p>
+                        Developed a novel 3D object detection method using discrete radiance field representations (NeRF, 3DGS, SVRaster) and sparse-dense convolutional neural networks.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">6GB VRAM</span>
+                        <span class="tag">CUDA 11</span>
+                        <span class="tag">PyTorch 2.1</span>
+                    </div>
+                    <div class="demo-section">
+                        <a href="rad-det/index.html" class="btn btn-primary btn-demo" target="_blank" rel="noopener noreferrer">
+                            Launch Rad-Det Viewer →
+                        </a>
+                    </div>
+                    <div class="project-section">
+                        <div class="project-software-grid">
+                            <div class="software-item">
+                                <img src="images/python.svg" alt="Python logo" class="software-logo">
+                            </div>
+                            <div class="software-item">
+                                <img src="images/pytorch.svg" alt="PyTorch logo" class="software-logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="project-card">
                 <div class="project-media-grid">
@@ -194,10 +231,16 @@
                     </p>
                     <div class="project-section">
                         <div class="project-tags">
-                            <span class="tag">Quad-core Cortex-A73 2GB</span>
+                            <span class="tag">Cortex-A73 2GB</span>
                             <span class="tag">STM32</span>
                             <span class="tag">Analog Servo Motors</span>
-                            <span class="tag">5MP RGB Camera</span>
+                            <span class="tag">5MP Camera</span>
+                        </div>
+                        <div class="project-thumbnails-small">
+                            <img src="images/lecture_camera.webp" alt="Project image 1" class="thumbnail-small" onclick="openModal(this.src)">
+                            <img src="images/classroom_1.webp" alt="Project image 2" class="thumbnail-small" onclick="openModal(this.src)">
+                            <img src="images/classroom_2.webp" alt="Project image 3" class="thumbnail-small" onclick="openModal(this.src)">
+                            <img src="images/classroom_3.webp" alt="Project image 4" class="thumbnail-small" onclick="openModal(this.src)">
                         </div>
                     </div>
                     <div class="project-section">
@@ -212,46 +255,8 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="images/rad_det_architecture_placeholder.webp" alt="Project 2 screenshot"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                    <div class="image-placeholder">
-                        <p>Coming soon...</p>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <h3>3D Object Detection Using Discrete Radiance Field Representations via Sparse-Dense Convolutional
-                        Neural Networks</h3>
-                    <p>
-                        Developed a novel 3D object detection method using discrete radiance field representations
-                        (<a href="https://arxiv.org/abs/2003.08934" target="_blank">NeRF</a>, <a href="https://arxiv.org/abs/2308.04079" target="_blank">3DGS</a>, <a href="https://arxiv.org/abs/2412.04459" target="_blank">SVRaster</a>) and sparse-dense convolutional neural networks.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">6GB VRAM</span>
-                        <span class="tag">CUDA 11</span>
-                        <span class="tag">PyTorch 2.1</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/jancoveeden" class="btn btn-small btn-outline" target="_blank">Source Code</a>
-                    </div>
-                    <div class="project-section">
-                        <div class="project-software-grid">
-                            <div class="software-item">
-                                <img src="images/python.svg" alt="Python logo" class="software-logo">
-                            </div>
-                            <div class="software-item">
-                                <img src="images/pytorch.svg" alt="PyTorch logo" class="software-logo">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        </div>
-        </div>
+    </div>
     </section>
 
     <section id="contact" class="section section-alt">
@@ -314,6 +319,12 @@
     <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">
         ↑
     </button>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
 
 </body>
 

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+        <title>Rad-Det Viewer</title>
+        <link rel="stylesheet" href="assets/styles/panel.css">
+        <link rel="icon" type="image/x-icon" href="assets/favico.webp">
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "playcanvas": "https://cdn.jsdelivr.net/npm/playcanvas@2.12.1/build/playcanvas.min.mjs"
+                }
+            }
+        </script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@playcanvas/web-components@0.2.11/dist/pwc.min.mjs"></script>
+    </head>
+    
+    <body>
+        <!-- Scene Header -->
+        <div id="scene-header">
+            <button id="scene-selector-button" title="Change Scene">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/>
+                </svg>
+            </button>
+            <h1 id="scene-title">Apartment</h1>
+            <button id="reset-button" title="Reset View">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                </svg>
+            </button>
+            <button id="bbox-toggle-button" title="Toggle Bounding Boxes">
+                <svg id="bbox-visible-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+                <svg id="bbox-hidden-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
+                    <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Scene Selector Modal -->
+        <div id="scene-selector-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Select Scene</h2>
+                    <button id="close-modal">&times;</button>
+                </div>
+                <div class="scene-grid">
+                    <div class="scene-card active" data-scene="apartment">
+                        <div class="scene-thumbnail">
+                            <img src="assets/apartment_preview.webp" alt="Apartment">
+                        </div>
+                        <h3>Apartment</h3>
+                    </div>
+                    <div class="scene-card" data-scene="office">
+                        <div class="scene-thumbnail">
+                            <img src="assets/office_preview.webp" alt="Office">
+                        </div>
+                        <h3>Office</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Button -->
+        <a id="home-button" href="https://janco.v-eeden.com" title="Back to Homepage">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+        </a>
+
+        <!-- Info Button -->
+        <button id="info-button" title="Scene Information">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+        </button>
+
+        <!-- Fullscreen Buttons -->
+        <button id="fullscreen-button" title="Toggle Fullscreen">
+            <svg id="fullscreen-enter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+            </svg>
+            <svg id="fullscreen-exit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
+                <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+            </svg>
+        </button>
+
+        <!-- Loading Indicator -->
+        <div id="loading-overlay">
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Loading Scene...</div>
+                <div class="loading-progress">
+                    <div class="loading-bar">
+                        <div class="loading-bar-fill" id="loading-bar-fill"></div>
+                    </div>
+                    <div class="loading-percentage" id="loading-percentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div id="info-panel">
+            <div class="panel-header">
+                <button id="close-panel">x</button>
+                <h2>Scene Info</h2>
+            </div>
+            
+            <div class="panel-content">
+                <!-- Annotation Details (hidden by default, shown when annotation clicked) -->
+                <div id="annotation-details">
+                    <h3 id="annotation-title">Selected Object</h3>
+                    <div id="annotation-info"></div>
+                </div>
+
+                <!-- Scene Information -->
+                <div class="info-section">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        Location
+                    </h3>
+                    <div class="info-row">
+                        <span class="info-label">Location:</span>
+                        <span class="info-value">Cape Town</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Date captured:</span>
+                        <span class="info-value">11 September 2025</span>
+                    </div>
+
+                </div>
+
+                <!-- Technical Details -->
+                <div class="info-section">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                        </svg>
+                        Technical Details
+                    </h3>
+                    <div class="metadata-grid">
+                        <div class="metadata-item">
+                            <div class="label">Reconstruction method</div>
+                            <div class="value">3DGS</div>
+                        </div>
+                        <div class="metadata-item">
+                            <div class="label">File size</div>
+                            <div class="value">5 MB</div>
+                        </div>
+                        <div class="metadata-item">
+                            <div class="label">3D object detector</div>
+                            <div class="value">Rad-Det</div>
+                        </div>
+                        <div class="metadata-item">
+                            <div class="label">Number of input images</div>
+                            <div class="value">100</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Object Information -->
+                <div class="info-section">
+                    <h3>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="10" width="80" height="80" fill="#6b7280" />
+                    </svg>
+                        Objects
+                    </h3>
+                    <div class="info-row">
+                        <span class="info-value">Apartment</span>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="info-section">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M15 7.5V2H9v5.5l3 3 3-3zM7.5 9H2v6h5.5l3-3-3-3zM9 16.5V22h6v-5.5l-3-3-3 3zM16.5 9l-3 3 3 3H22V9h-5.5z"/>
+                        </svg>
+                        Controls
+                    </h3>
+                <div class="info-row">
+                    <span class="info-label">Rotate:</span>
+                    <span class="info-value">Left Click + Drag</span>
+                    <span class="info-value-mobile">One Finger Drag</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Zoom:</span>
+                    <span class="info-value">Mouse Wheel</span>
+                    <span class="info-value-mobile">Pinch-to-zoom</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Pan:</span>
+                    <span class="info-value">Shift + Left Click + Drag</span>
+                    <span class="info-value-mobile">Two Finger Drag</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Fly:</span>
+                    <span class="info-value">WASD or Arrow keys</span>
+                    <span class="info-value-mobile">Drag</span>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <pc-app antialias="false" depth="false" high-resolution="false" stencil="false">
+            <!-- Assets -->
+            <pc-asset id="camera-controls" src="assets/scripts/camera-controls.mjs"></pc-asset>
+            <pc-asset id="annotation" src="assets/scripts/annotation.mjs"></pc-asset>
+            <pc-asset id="bounding-box-loader" src="assets/scripts/bounding-box-loader.mjs"></pc-asset>
+
+            <pc-asset id="xr-controllers" src="https://cdn.jsdelivr.net/npm/playcanvas@2.12.1/scripts/esm/xr-controllers.min.mjs" preload></pc-asset>
+            <pc-asset id="xr-navigation" src="https://cdn.jsdelivr.net/npm/playcanvas@2.12.1/scripts/esm/xr-navigation.min.mjs" preload></pc-asset>
+
+            <pc-asset src="assets/splats/apartment.sog" id="apartment"></pc-asset>
+            <pc-asset src="assets/splats/office.sog" id="office"></pc-asset>
+                
+            <!-- Scene -->
+            <pc-scene>
+
+                <!-- Camera (with XR support) -->
+                <pc-entity name="camera root">
+                    <pc-entity name="camera" position="0.5 1 0.5">
+                        <pc-camera near="0.01" far="50" fov="60"></pc-camera>
+                        <pc-scripts>
+                            <pc-script name="cameraControls" attributes='{
+                                "enableFly": true,
+                                "enablePan": true,
+                                "focusPoint": "vec3:0.0,1.0,0",
+                                "pitchRange": "vec2:-90,45",
+                                "sceneSize": 0.5,
+                                "zoomRange": "vec2:0.1,0.4",
+                                "sceneBoundary": {"min": [-0.7, 0.8, -0.7], "max": [0.7, 1.2, 0.7]}
+                            }'></pc-script>
+                        </pc-scripts>
+                    </pc-entity>
+                    <pc-scripts>
+                        <pc-script name="xrControllers"></pc-script>
+                        <pc-script name="xrNavigation"></pc-script>
+                    </pc-scripts>
+                </pc-entity>
+
+                <!-- Light -->
+                <pc-entity name="light" rotation="35 45 0">
+                    <pc-light color="white" intensity="1.5"></pc-light>
+                </pc-entity>
+
+                <!-- Splat -->
+                <pc-entity name="apartment" position="0 1 0" rotation="90 -75 180">
+                    <pc-splat asset="apartment"></pc-splat>
+
+                    <!-- Bounding Box Loader -->
+                    <pc-entity name="bounding-boxes">
+                        <pc-scripts>
+                            <pc-script name="boundingBoxLoader" attributes='{
+                                "jsonUrl": "assets/box_data/apartment_rad_det_boxes.json",
+                                "lineWidth": 5,
+                                "showLabels": true,
+                                "autoLoad": true
+                            }'></pc-script>
+                        </pc-scripts>
+                    </pc-entity>
+
+            </pc-scene>
+        </pc-app>
+
+        <script src="assets/scripts/panel.js"></script>
+    </body>
+</html>
