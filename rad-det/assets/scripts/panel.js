@@ -17,12 +17,72 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingBarFill = document.getElementById('loading-bar-fill');
     const loadingPercentage = document.getElementById('loading-percentage');
 
-    // Hide loading overlay initially after a delay (in case page loads quickly)
-    setTimeout(() => {
-        if (loadingOverlay) {
-            loadingOverlay.classList.add('hidden');
+    // Wait for PlayCanvas app to be fully ready before hiding loading
+    let sceneReadyCheckInterval = null;
+    let loadingCheckStarted = false;
+    
+    function checkSceneReady() {
+        const pcApp = document.querySelector('pc-app');
+        if (!pcApp || !pcApp.app) return false;
+        
+        const app = pcApp.app;
+        const splatEntity = app.root.findByName('apartment');
+        
+        if (!splatEntity || !splatEntity.gsplat) return false;
+        
+        // Check if splat is enabled and has rendered at least one frame
+        if (splatEntity.enabled && splatEntity.gsplat.asset) {
+            return true;
         }
-    }, 2000);
+        
+        return false;
+    }
+    
+    function startSceneReadyCheck() {
+        if (loadingCheckStarted) return;
+        loadingCheckStarted = true;
+        
+        let progress = 0;
+        sceneReadyCheckInterval = setInterval(() => {
+            // Gradually increase progress while waiting
+            progress += 0.02;
+            if (progress < 0.95) {
+                if (window.updateLoadingProgress) {
+                    window.updateLoadingProgress(progress);
+                }
+            }
+            
+            // Check if scene is actually ready
+            if (checkSceneReady()) {
+                clearInterval(sceneReadyCheckInterval);
+                if (window.updateLoadingProgress) {
+                    window.updateLoadingProgress(1.0);
+                }
+                // Add a small delay to ensure first frame is rendered
+                setTimeout(() => {
+                    if (loadingOverlay) {
+                        loadingOverlay.classList.add('hidden');
+                    }
+                }, 500);
+            }
+        }, 100);
+        
+        // Failsafe: hide after 15 seconds even if scene not detected as ready
+        setTimeout(() => {
+            if (sceneReadyCheckInterval) {
+                clearInterval(sceneReadyCheckInterval);
+                if (window.updateLoadingProgress) {
+                    window.updateLoadingProgress(1.0);
+                }
+                if (loadingOverlay) {
+                    loadingOverlay.classList.add('hidden');
+                }
+            }
+        }, 15000);
+    }
+    
+    // Start checking when DOM is loaded
+    setTimeout(startSceneReadyCheck, 500);
 
     // Expose loading functions globally
     window.showLoading = function() {
@@ -40,9 +100,25 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     window.hideLoading = function() {
-        if (loadingOverlay) {
-            loadingOverlay.classList.add('hidden');
-        }
+        // Wait for actual scene to be visible before hiding
+        const checkInterval = setInterval(() => {
+            if (checkSceneReady()) {
+                clearInterval(checkInterval);
+                setTimeout(() => {
+                    if (loadingOverlay) {
+                        loadingOverlay.classList.add('hidden');
+                    }
+                }, 300);
+            }
+        }, 100);
+        
+        // Failsafe timeout
+        setTimeout(() => {
+            clearInterval(checkInterval);
+            if (loadingOverlay) {
+                loadingOverlay.classList.add('hidden');
+            }
+        }, 5000);
     };
 
     // Toggle panel on button click
