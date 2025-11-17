@@ -10,6 +10,9 @@ body {
     overflow: hidden;
     background-color: #000000;
     color: #1f2937;
+    /* Prevent pull-to-refresh on mobile browsers */
+    overscroll-behavior-y: contain;
+    touch-action: pan-x pan-y;
 }
 
 /* Loading Indicator */

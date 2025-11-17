@@ -822,3 +822,61 @@ window.hideAnnotationInPanel = function() {
         }
     }
 };
+
+// Prevent Safari touch gestures from interfering with camera controls
+document.addEventListener('DOMContentLoaded', function() {    
+    // Prevent double-tap zoom on iOS Safari
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            if (e.target.tagName === 'CANVAS' || e.target.closest('pc-app')) {
+                e.preventDefault();
+            }
+        }
+        lastTouchEnd = now;
+    }, false);
+
+    // Prevent pull-to-refresh on mobile browsers
+    let touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: false });
+
+    document.addEventListener('touchmove', function(e) {
+        const touchY = e.touches[0].clientY;
+        const touchDelta = touchY - touchStartY;
+        
+        // If the user is at the top of the page and trying to scroll down, prevent it
+        if (window.scrollY === 0 && touchDelta > 0) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // Auto-enter fullscreen on mobile devices
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+               (window.innerWidth <= 768);
+    }
+
+    if (isMobileDevice()) {
+        // Wait for user interaction before requesting fullscreen (browsers require this)
+        let fullscreenRequested = false;
+        
+        const requestFullscreenOnInteraction = function() {
+            if (!fullscreenRequested && !document.fullscreenElement) {
+                fullscreenRequested = true;
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log('Fullscreen request denied or not supported:', err);
+                });
+            }
+            // Remove listeners after first interaction
+            document.removeEventListener('touchstart', requestFullscreenOnInteraction);
+            document.removeEventListener('click', requestFullscreenOnInteraction);
+        };
+        
+        // Listen for first touch or click to trigger fullscreen
+        document.addEventListener('touchstart', requestFullscreenOnInteraction, { once: true });
+        document.addEventListener('click', requestFullscreenOnInteraction, { once: true });
+    }
+});

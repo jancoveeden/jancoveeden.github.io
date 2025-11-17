@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+package.json
 
 # Unused
 images/rad_det_architecture.webp

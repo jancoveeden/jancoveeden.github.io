@@ -50,6 +50,7 @@
 [data-theme="dark"] {
     --bg-primary: #1a1f2e;
     --bg-secondary: #242b3d;
+    --dark-color: #1a1f2e;
     --bg-hero: linear-gradient(135deg, #03d6ddc6 0%, #242b3d 100%);
     --text-primary: #e4e6eb;
     --text-secondary: #a8b3cf;
@@ -1266,6 +1267,23 @@ a:hover {
     .tools-grid {
         grid-template-columns: 1fr;  /* Single column on very small screens */
     }
+    
+    /* Further reduce card sizes on very small screens */
+    .skill-card {
+        max-width: 300px;
+        width: 85%;
+    }
+    
+    .project-card {
+        max-width: 100%;
+        width: 95%;
+    }
+    
+    .contact-item {
+        max-width: 100%;
+        width: 95%;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1275,8 +1293,56 @@ a:hover {
     }
     
     .skill-card {
-        max-width: 400px;
-        width: 100%;
+        max-width: 340px;
+        width: 90%;
+        padding: var(--spacing-sm);
+    }
+    
+    /* Reduce project card width on mobile */
+    .project-card {
+        max-width: 600px;
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    /* Reduce contact item padding and width */
+    .contact-item {
+        padding: var(--spacing-sm);
+        max-width: 500px;
+        margin: 0 var(--spacing-sm) auto;
+    }
+    
+    /* Reduce contact content width */
+    .contact-content {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+    
+    /* Reduce overall container padding */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    /* Hide scroll indicator on small screens to prevent overlap */
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+/* Mobile landscape mode - hide scroll indicator to prevent button overlap */
+@media screen and (max-width: 896px) and (max-height: 500px) and (orientation: landscape) {
+    .scroll-indicator {
+        display: none;
+    }
+    
+    .hero {
+        min-height: 50vh;
+        padding: var(--spacing-sm);
+    }
+    
+    .hero-buttons {
+        gap: var(--spacing-sm);
+        margin-top: var(--spacing-sm);
     }
 }
 
