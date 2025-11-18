@@ -233,7 +233,7 @@ class BoundingBoxLoader extends Script {
                     <p><strong>Confidence:</strong> ${(boxData.confidence * 100).toFixed(1)}%</p>
                     <p><strong>Position:</strong> (${boxData.position[0].toFixed(2)}, ${boxData.position[1].toFixed(2)}, ${boxData.position[2].toFixed(2)})</p>
                     <p><strong>Size:</strong> ${boxData.size[0].toFixed(2)} x ${boxData.size[1].toFixed(2)} x ${boxData.size[2].toFixed(2)} m</p>
-                    <button id="go-to-object-btn" style="margin-top: 12px; padding: 8px 16px; background: #0c0a0aff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;">Move to Object</button>
+                    <button id="go-to-object-btn" style="margin-top: 12px; padding: 8px 16px; background: #ffcc00c3; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;">Move to Object</button>
                 `
             };
             window.showAnnotationInPanel(boxData.label, details);

@@ -17,6 +17,64 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingBarFill = document.getElementById('loading-bar-fill');
     const loadingPercentage = document.getElementById('loading-percentage');
 
+    // Theme detection & application
+    (function() {
+        const THEME_STORAGE_KEY = 'theme';
+
+        function getSystemPreference() {
+            if (window.matchMedia) {
+                const mDark = window.matchMedia('(prefers-color-scheme: dark)');
+                const mLight = window.matchMedia('(prefers-color-scheme: light)');
+                if (mDark.matches) return 'dark';
+                if (mLight.matches) return 'light';
+            }
+            return null; // no explicit system preference
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            // Some browsers look at the meta color-scheme; we can update it when theme changes.
+            const meta = document.querySelector('meta[name="color-scheme"]');
+            if (meta) {
+                if (theme === 'light') meta.content = 'light dark';
+                else meta.content = 'dark light';
+            }
+        }
+
+        // Public API to set theme (saves preference if save === true)
+        window.setTheme = function(theme, save = true) {
+            if (theme !== 'dark' && theme !== 'light') return;
+            if (save) localStorage.setItem(THEME_STORAGE_KEY, theme);
+            applyTheme(theme);
+        };
+
+        window.getTheme = function() {
+            return document.documentElement.getAttribute('data-theme');
+        };
+
+        // Resolve theme: user preference in localStorage -> system preference -> default dark
+        const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        const systemTheme = getSystemPreference();
+        const initialTheme = storedTheme || systemTheme || 'dark';
+        applyTheme(initialTheme);
+
+        // Listen for system changes and update theme if the user hasn't explicitly stored a choice
+        if (window.matchMedia) {
+            const mDark = window.matchMedia('(prefers-color-scheme: dark)');
+            mDark.addEventListener && mDark.addEventListener('change', e => {
+                if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+                    applyTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+            const mLight = window.matchMedia('(prefers-color-scheme: light)');
+            mLight.addEventListener && mLight.addEventListener('change', e => {
+                if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+                    applyTheme(e.matches ? 'light' : 'dark');
+                }
+            });
+        }
+    })();
+
     // Wait for PlayCanvas app to be fully ready before hiding loading
     let sceneReadyCheckInterval = null;
     let loadingCheckStarted = false;
@@ -124,7 +182,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Toggle panel on button click
     if (infoButton) {
         infoButton.addEventListener('click', function() {
+            const wasOpen = infoPanel.classList.contains('open');
             infoPanel.classList.toggle('open');
+            
+            // Scroll to top when opening the panel
+            if (!wasOpen) {
+                infoPanel.scrollTop = 0;
+            }
         });
     }
 
@@ -725,7 +789,7 @@ function updateInfoPanelForScene(sceneId) {
     
     if (objectsSection) {
         // Clear existing content
-        const existingRows = objectsSection.querySelectorAll('.info-row');
+        const existingRows = objectsSection.querySelectorAll('.info-row, .objects-grid');
         existingRows.forEach(row => row.remove());
         
         // Load objects from bounding box JSON
@@ -737,15 +801,21 @@ function updateInfoPanelForScene(sceneId) {
                         // Get unique labels and sort them
                         const uniqueLabels = [...new Set(data.boundingBoxes.map(box => box.label))].sort();
                         
-                        // Add each unique object as a new row
+                        // Create a grid container for objects
+                        const grid = document.createElement('div');
+                        grid.className = 'objects-grid';
+                        
+                        // Add each unique object as a tag
                         uniqueLabels.forEach(label => {
-                            const row = document.createElement('div');
-                            row.className = 'info-row';
+                            const tag = document.createElement('div');
+                            tag.className = 'object-tag';
                             // Capitalize first letter
                             const displayLabel = label.charAt(0).toUpperCase() + label.slice(1);
-                            row.innerHTML = `<span class="info-value">${displayLabel}</span>`;
-                            objectsSection.appendChild(row);
+                            tag.textContent = displayLabel;
+                            grid.appendChild(tag);
                         });
+                        
+                        objectsSection.appendChild(grid);
                     }
                 })
                 .catch(error => {
@@ -778,7 +848,7 @@ window.showAnnotationInPanel = function(title, details) {
     let titleText = 'Selected Object';
     if (title && String(title).trim()) {
         const raw = String(title).trim();
-        titleText = raw.charAt(0).toUpperCase() + raw.slice(1);
+        titleText = 'Selected Object: ' + raw.charAt(0).toUpperCase() + raw.slice(1);
     }
     annotationTitle.textContent = titleText;
     
@@ -800,10 +870,11 @@ window.showAnnotationInPanel = function(title, details) {
     // Open the panel
     infoPanel.classList.add('open');
 
-    // Scroll to annotation details
+    // Scroll panel to top first, then to annotation details
     setTimeout(() => {
         annotationDetails.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
+    infoPanel.scrollTop = 0;
 };
 
 /**
