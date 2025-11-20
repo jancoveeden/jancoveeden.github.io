@@ -284,6 +284,8 @@ a {
     position: relative;
     margin-top: 70px;
     transition: background 0.3s ease;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .hero-content {
@@ -364,9 +366,18 @@ a {
 @media (max-width: 768px) {
     .hero {
         padding: var(--spacing-md) 1rem;
+        width: 100%;
+        overflow-x: hidden;
     }
     .hero .about-image {
-        flex: 0 0 160px; /* reduced from 200px to 160px */
+        flex: 0 0 140px;
+        margin: 0 auto;
+    }
+    .hero .about-image img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
     }
     .hero .hero-title {
         font-size: 2.0rem;
@@ -376,34 +387,54 @@ a {
     }
     .hero .about-text p {
         font-size: 0.95rem;
-        margin: 18px auto; 
+        margin: 18px auto;
+    }
+    .hero .about-content {
+        width: 100%;
+        padding: 0;
     }
 }
 
 @media (max-width: 480px) {
     .hero .about-image {
-        flex: 0 0 120px; /* smaller on small phones */
+        flex: 0 0 110px;
+    }
+    .hero .about-image img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
     }
     .hero .hero-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
     .hero .hero-subtitle {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 }
 
 @media (max-width: 360px) {
     .hero .about-image {
-        flex: 0 0 100px; /* very small screens */
+        flex: 0 0 90px;
+    }
+    .hero .about-image img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
     }
     .hero .hero-title {
         font-size: 1.4rem;
     }
     .hero .hero-subtitle {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     .hero .about-text p {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        margin: 16px auto;
+    }
+    .hero .about-text p {
+        font-size: 0.9rem;
         margin: 18px auto; 
     }
 }
@@ -998,6 +1029,8 @@ a {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    align-items: center; /* Center contact items */
+    width: 100%;
 }
 
 .contact-item {
@@ -1010,6 +1043,8 @@ a {
     box-shadow: 0 2px 10px var(--card-shadow);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid var(--border-color);
+    width: 100%; /* Full width by default */
+    max-width: 300px; /* Constrain maximum width */
 }
 
 .contact-icon {
@@ -1245,7 +1280,12 @@ a {
     /* Show mobile menu toggle */
     .nav-toggle {
         display: flex;
-         margin-right: var(--spacing-sm);
+        margin-right: var(--spacing-sm);
+    }
+    
+    /* Ensure hamburger bars are white */
+    .nav-toggle .bar {
+        background-color: var(--white);
     }
     
     /* Group theme toggle and burger menu on the right */
@@ -1331,7 +1371,7 @@ a {
     }
     
     .section-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
     
     .skills-grid,
@@ -1352,9 +1392,22 @@ a {
     }
     
     .contact-item {
-        max-width: 100%;
+        max-width: 95%;
         width: 95%;
         padding: var(--spacing-xs) var(--spacing-sm);
+        margin: 0 auto;
+    }
+
+    .contact-icon {
+        width: 32px;
+        font-size: 1.2rem;
+    }
+
+    .mail-logo,
+    .linkedin-logo,
+    .github-logo {
+        width: 28px;
+        height: 28px;
     }
 }
 
@@ -1380,14 +1433,22 @@ a {
     /* Reduce contact item padding and width */
     .contact-item {
         padding: var(--spacing-sm);
-        max-width: 500px;
-        margin: 0 var(--spacing-sm) auto;
+        max-width: 90%;
+        width: 90%;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .contact-info {
+        width: 100%;
+        align-items: center;
+        padding: 0 var(--spacing-sm);
     }
     
-    /* Reduce contact content width */
     .contact-content {
-        max-width: 90%;
+        max-width: 100%;
+        width: 100%;
         margin: 0 auto;
+        padding: 0;
     }
     
     /* Reduce overall container padding */
