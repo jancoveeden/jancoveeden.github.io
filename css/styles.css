@@ -1,6 +1,6 @@
 :root {
     color-scheme: light dark;
-    --primary-color: #03d6ddc6;
+    --primary-color: #009aa0c6;
     --secondary-color: #2ecc71;
     --dark-color: #1c2b3a;
     --light-color: #ecf0f1;
@@ -12,16 +12,19 @@
     
     /* Light mode (default) */
     --bg-primary: #ffffff;
-    --bg-secondary: #75c1cb57;
-    --bg-hero: linear-gradient(135deg, #03d6ddc6 0%, #1c2b3a 100%);
     --text-primary: #333333;
-    --text-secondary: #7f8c8d;
-    --card-bg: #ffffff;
+    --text-secondary: #565e5f;
+    --card-bg: #f0f0f0;
     --card-shadow: rgba(0, 0, 0, 0.575);
-    --navbar-bg: #1c2b3a;
+    --navbar-bg: #0a0a29;
     --border-color: rgba(0, 0, 0, 0.1);
-    --link-color: #2b00fffb;
+    --link-color: #00bc71;
     --link-hover: #f9cd30;
+    --link-contact-color: #5b5b5b;
+
+    --bg-hero: linear-gradient(250deg, #19183B 0%, #4b756d 100%);
+    --bg-secondary: #A1C2BD;
+    --projects-sec-bg: #E7F2EF;
 
     --skill-card-bg: #31929257;
     --skill-card-sec: #000000d7;
@@ -56,16 +59,21 @@
     --text-secondary: #a8b3cf;
     --card-bg: #285c718b;
     --card-shadow: rgba(157, 151, 151, 0.4);
-    --navbar-bg: #151a28;
+    --navbar-bg: #0a0a29;
     --border-color: rgba(255, 255, 255, 0.12);
     --light-color: #242b3d;
-    --link-color: #4dd4dd;
-    --link-hover: #03d6ddc6;
     --skill-card-bg: #3a72a422;
     --skill-card-sec: #ffffffd7;
     --tag-bg: #0000006f;
     --link-color: #f9cd30;
     --link-hover: #ffffff;
+    --projects-sec-bg: #14264200;
+    --primary-color: #009ba0;
+    --link-contact-color: #f9cd30;
+}
+
+#projects {
+    background: var(--projects-sec-bg); 
 }
 
 * {
@@ -92,10 +100,6 @@ body {
 a {
     color: var(--link-color);
     transition: color 0.3s ease;
-}
-
-a:hover {
-    color: var(--link-hover);
 }
 
 .container {
@@ -270,7 +274,7 @@ a:hover {
 .hero {
     background: var(--bg-hero);
     color: var(--white);
-    min-height: 70vh;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -299,11 +303,109 @@ a:hover {
     opacity: 0.9;
 }
 
-.hero-buttons {
+/* Tighter hero sizing and spacing for combined Home/About */
+.hero .hero-title {
+    font-size: 2.8rem; /* slightly decreased */
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.hero .hero-subtitle {
+    font-size: 1.15rem; /* slightly smaller */
+    margin-top: 0;
+    margin-bottom: 1rem;
+    opacity: 0.95;
+}
+
+/* Scope About title in hero: center title, left-justify paragraphs */
+.hero .about-text .section-title {
+    text-align: center; /* title centered */
+    margin-bottom: 0.75rem;
+    color: #ffffff;
+}
+
+.hero .about-text p {
+    text-align: left; /* paragraphs left-justified */
+    margin-bottom: var(--spacing-md);
+    font-size: 1.05rem;
+}
+
+.hero .about-text a {
+    color: var(--link-color); /* subtle accent for links */
+    text-decoration: underline;
+}
+
+/* Align image and text better in hero */
+.hero .about-content {
     display: flex;
-    gap: var(--spacing-md);
-    justify-content: center;
-    flex-wrap: wrap;            /* Wrap buttons on small screens */
+    align-items: center;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.hero .about-image {
+    flex: 0 0px 280px; 
+    text-align: center;
+    margin: 0 auto; 
+}
+
+.hero .about-image .image-header {
+    margin-bottom: 12px;
+    text-align: center;
+    color: var(--white);
+}
+
+.hero .about-text {
+    flex: 1;
+    min-width: 260px;
+}
+
+/* Responsive: reduce about image size on smaller screens */
+@media (max-width: 768px) {
+    .hero {
+        padding: var(--spacing-md) 1rem;
+    }
+    .hero .about-image {
+        flex: 0 0 160px; /* reduced from 200px to 160px */
+    }
+    .hero .hero-title {
+        font-size: 2.0rem;
+    }
+    .hero .hero-subtitle {
+        font-size: 0.98rem;
+    }
+    .hero .about-text p {
+        font-size: 0.95rem;
+        margin: 18px auto; 
+    }
+}
+
+@media (max-width: 480px) {
+    .hero .about-image {
+        flex: 0 0 120px; /* smaller on small phones */
+    }
+    .hero .hero-title {
+        font-size: 1.6rem;
+    }
+    .hero .hero-subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero .about-image {
+        flex: 0 0 100px; /* very small screens */
+    }
+    .hero .hero-title {
+        font-size: 1.4rem;
+    }
+    .hero .hero-subtitle {
+        font-size: 0.85rem;
+    }
+    .hero .about-text p {
+        font-size: 0.95rem;
+        margin: 18px auto; 
+    }
 }
 
 /* Scroll indicator animation */
@@ -388,34 +490,6 @@ a:hover {
 /* ============================================
    ABOUT SECTION
    ============================================ */
-
-.about-content {
-    display: flex;
-    gap: var(--spacing-lg);
-    align-items: center;
-    flex-wrap: wrap;            /* Stack on small screens */
-}
-
-.about-text {
-    flex: 1;                    /* Take up available space */
-    min-width: 300px;
-}
-
-.about-text p {
-    margin-bottom: var(--spacing-md);
-    line-height: 1.8;
-}
-
-.about-image {
-    flex: 0 0 300px;            /* Fixed width */
-    position: relative;
-}
-
-.about-image img {
-    width: 100%;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
 
 /* Placeholder for missing images */
 .image-placeholder {
@@ -584,7 +658,6 @@ a:hover {
     transition: color 0.3s ease;
 }
 
-/* Project sections for Hardware/Software */
 .project-section {
     margin-top: 1rem;
 }
@@ -598,7 +671,6 @@ a:hover {
     letter-spacing: 0.5px;
 }
 
-/* Software grid layout similar to skills */
 .project-software-grid {
     display: flex;
     flex-wrap: wrap;
@@ -964,7 +1036,7 @@ a:hover {
 }
 
 .contact-item a {
-    color: var(--link-color);
+    color: var(--link-contact-color);
     text-decoration: none;
     transition: color 0.3s ease;
 }

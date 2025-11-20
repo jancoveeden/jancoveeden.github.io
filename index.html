@@ -16,11 +16,10 @@
         <div class="nav-container">
 
             <div class="nav-brand">
-                <a href="#home">JVE Portfolio</a>
+                <a href="#about">JVE Portfolio</a>
             </div>
 
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -44,49 +43,32 @@
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                Janco van Eeden
-            </h1>
-            <p class="hero-subtitle">
-                Machine Learning Engineer | Tech Enthusiast | Lifelong Learner
-            </p>
-            <div class="hero-buttons">
-
-                <a href="#projects" class="btn btn-primary">My Projects</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-            </div>
-        </div>
-
-        <div class="scroll-indicator">
-            <span>Scroll Down</span>
-            <div class="arrow-down"></div>
-        </div>
-    </section>
-
-    <section id="about" class="section">
+    <section id="about" class="hero">
         <div class="container">
-
-            <h2 class="section-title">About Me</h2>
-
             <div class="about-content">
+                <!-- Image column: name and titles above the image -->
+                <div class="about-image">
+                    <div class="image-header">
+                        <h1 class="hero-title">Janco van Eeden</h1>
+                        <p class="hero-subtitle">Machine Learning Engineer | Tech Enthusiast | Lifelong Learner</p>
+                    </div>
+
+                    <img src="images/pfp.jpg" alt="Profile picture" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+
+                    <div class="image-placeholder">
+                        <p>PFP Placeholder</p>
+                    </div>
+                </div>
+
+                <!-- Text column: about paragraphs -->
                 <div class="about-text">
+                    <h2 class="section-title">About Me</h2>
                     <p>
                         I hold a Bachelor of Engineering (Computer Engineering), specialising in a real-world application of machine learning and computer vision optimised for resource-constrained microcontrollers. Motivated by the field's rapid progress, I am eager to learn, study, and apply engineering techniques.
                     </p>
                     <p>
                         Currently, I am completing a Master of Engineering degree (expected December 2025). As a member of the <a href="https://www.up.ac.za/" target="_blank">University of Pretoria</a>'s Intelligent Systems Research Group, my research focuses on developing innovative algorithms in computer vision, particularly 3D object detection and novel view synthesis pipelines.
                     </p>
-                </div>
-
-                <div class="about-image">
-                    <img src="images/pfp.jpg" alt="Profile picture"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-
-                    <div class="image-placeholder">
-                        <p>PFP Placeholder</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -96,9 +78,6 @@
 
         <div class="container">
             <h2 class="section-title">My Skills</h2>
-            <p class="section-description">
-                Technologies and tools I've worked with
-            </p>
 
             <div class="skills-grid">
                 <div class="skill-card">
@@ -159,7 +138,7 @@
         <div class="container">
             <h2 class="section-title">My Projects</h2>
             <p class="section-description">
-                A collection of projects I've built while learning
+                A collection of projects I have built during my studies.
             </p>
 
             <div class="projects-grid">
@@ -284,7 +263,7 @@
                         </div>
                         <div>
                             <h4>Email</h4>
-                            <a href="mailto:janco.vaneeden@gmail.com">janco.vaneeden@gmail.com</a>
+                            <a href="mailto:janco@v-eeden.com">janco@v-eeden.com</a>
                         </div>
                     </div>
 
