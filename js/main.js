@@ -6,7 +6,19 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollEffects();
     initSkillBars();
     initThemeToggle();
+    initCopyrightYear();
 });
+
+/* ============================================
+   COPYRIGHT YEAR
+   ============================================ */
+function initCopyrightYear() {
+    const yearSpan = document.getElementById('copyright-year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+}
+
 
 /* ============================================
    IMAGE MODAL
