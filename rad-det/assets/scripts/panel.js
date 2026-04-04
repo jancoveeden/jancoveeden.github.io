@@ -181,11 +181,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle panel on button click
     if (infoButton) {
-        infoButton.addEventListener('click', function() {
+        infoButton.addEventListener('click', function(e) {
+            e.stopPropagation();
             const wasOpen = infoPanel.classList.contains('open');
             infoPanel.classList.toggle('open');
             
-            // Scroll to top when opening the panel
             if (!wasOpen) {
                 infoPanel.scrollTop = 0;
             }
@@ -196,29 +196,31 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closePanel) {
         closePanel.addEventListener('click', function() {
             infoPanel.classList.remove('open');
-            // Hide annotation details when closing panel
             window.hideAnnotationInPanel();
         });
     }
 
-    // Close panel when clicking outside
+    // Close panel/modal when clicking outside
     document.addEventListener('click', function(event) {
-        // Don't close if a bounding box was just clicked
-        if (window._boundingBoxClicked) {
-            return;
-        }
+        if (window._boundingBoxClicked) return;
         
-        if (!infoPanel.contains(event.target) && 
-            !infoButton.contains(event.target) && 
-            infoPanel.classList.contains('open')) {
-            // Don't close if clicking on annotation markers
+        // Handle Info Panel
+        if (infoPanel.classList.contains('open') && 
+            !infoPanel.contains(event.target) && 
+            !infoButton.contains(event.target)) {
+            
             if (!event.target.closest('.annotation') && 
                 !event.target.closest('.clickable-annotation') &&
                 !event.target.closest('.pc-annotation-hotspot')) {
                 infoPanel.classList.remove('open');
-                // Hide annotation details when closing panel
                 window.hideAnnotationInPanel();
             }
+        }
+
+        // Handle Scene Selector Modal
+        if (sceneSelectorModal.classList.contains('open') && 
+            event.target === sceneSelectorModal) {
+            sceneSelectorModal.classList.remove('open');
         }
     });
 
@@ -782,10 +784,8 @@ function updateInfoPanelForScene(sceneId) {
     const numImagesValue = document.querySelector('.metadata-item:nth-child(4) .value');
     if (numImagesValue) numImagesValue.textContent = info.numImages;
     
-    // Update objects list - find the Objects section and update it
-    const objectsSection = Array.from(document.querySelectorAll('.info-section')).find(section => {
-        return section.querySelector('h3')?.textContent.includes('Objects');
-    });
+    // Update objects list
+    const objectsSection = document.getElementById('objects-section');
     
     if (objectsSection) {
         // Clear existing content
@@ -798,18 +798,14 @@ function updateInfoPanelForScene(sceneId) {
                 .then(response => response.json())
                 .then(data => {
                     if (data.boundingBoxes && data.boundingBoxes.length > 0) {
-                        // Get unique labels and sort them
                         const uniqueLabels = [...new Set(data.boundingBoxes.map(box => box.label))].sort();
                         
-                        // Create a grid container for objects
                         const grid = document.createElement('div');
                         grid.className = 'objects-grid';
                         
-                        // Add each unique object as a tag
                         uniqueLabels.forEach(label => {
                             const tag = document.createElement('div');
                             tag.className = 'object-tag';
-                            // Capitalize first letter
                             const displayLabel = label.charAt(0).toUpperCase() + label.slice(1);
                             tag.textContent = displayLabel;
                             grid.appendChild(tag);

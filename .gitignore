@@ -17,3 +17,8 @@ images/rad_det_architecture.webp
 
 # Logs
 *.log
+
+# Agents
+.claude/
+.gemini/
+.impec*
