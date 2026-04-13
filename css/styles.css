@@ -14,8 +14,9 @@
     --spacing-xl: clamp(2.5rem, 5vw, 4rem);
 
     /* Typography */
-    --font-main: 'DM Sans', 'Segoe UI', sans-serif;
-    --font-heading: 'DM Serif Display', Georgia, serif;
+    --font-main: 'Space Grotesk', 'DM Sans', 'Segoe UI', sans-serif;
+    --font-heading: 'Space Grotesk', 'DM Sans', 'Segoe UI', sans-serif;
+    --font-mono: 'Space Grotesk', 'DM Sans', 'Segoe UI', sans-serif;
 
     /* Layout */
     --max-width: 1200px;
@@ -264,7 +265,20 @@ a {
     height: 3px;
     background-color: var(--white);
     margin: 3px 0;
-    transition: 0.3s;
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+}
+
+/* Hamburger active animation (X shape) */
+.nav-toggle.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.nav-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
 }
 
 /* Theme Toggle */
@@ -361,12 +375,14 @@ a {
 
 /* Scope About title in hero: center title, left-justify paragraphs */
 .hero .about-text .section-title {
+    font-family: var(--font-mono);
     text-align: center;
     margin-bottom: 0.75rem;
     color: var(--white);
 }
 
 .hero .about-text p {
+    font-family: var(--font-mono);
     text-align: left;
     margin-bottom: var(--spacing-md);
     font-size: clamp(0.93rem, 1.3vw, 1.05rem);
@@ -1223,6 +1239,12 @@ a {
 
 .scroll-top-btn.visible {
     display: flex;
+}
+
+.scroll-top-btn img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
 }
 
 
