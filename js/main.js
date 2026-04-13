@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initModal();
     initRevealAnimations();
     initContactMorph();
+    initPixelAnimation();
 });
 
 /* ============================================
@@ -317,4 +318,46 @@ function initSkillBars() {
     skillBars.forEach(function(bar) {
         observer.observe(bar);
     });
+}
+
+
+/* ============================================
+   PIXEL ANIMATION (SPRITE SHEET)
+   ============================================ */
+function initPixelAnimation() {
+    var canvas = document.getElementById('pixel-anim');
+    if (!canvas) return;
+
+    var ctx = canvas.getContext('2d');
+    var spriteSheet = new Image();
+    var FRAME_WIDTH = 219;
+    var FRAME_HEIGHT = 114;
+    var FRAME_COUNT = 9;
+    var FPS = 8;
+    var frameIndex = 0;
+    var lastFrameTime = 0;
+    var frameDuration = 1000 / FPS;
+
+    spriteSheet.onload = function() {
+        requestAnimationFrame(animate);
+    };
+    spriteSheet.src = 'images/anim/sprite.png';
+
+    function animate(timestamp) {
+        if (!lastFrameTime) lastFrameTime = timestamp;
+        var elapsed = timestamp - lastFrameTime;
+
+        if (elapsed >= frameDuration) {
+            frameIndex = (frameIndex + 1) % FRAME_COUNT;
+            ctx.clearRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+            ctx.drawImage(
+                spriteSheet,
+                frameIndex * FRAME_WIDTH, 0, FRAME_WIDTH, FRAME_HEIGHT,
+                0, 0, FRAME_WIDTH, FRAME_HEIGHT
+            );
+            lastFrameTime = timestamp - (elapsed % frameDuration);
+        }
+
+        requestAnimationFrame(animate);
+    }
 }

@@ -70,14 +70,14 @@
     <main>
     <section id="about" class="hero" aria-label="About">
         <div class="container">
-            <div class="about-content">
-                <!-- Image column: name and titles above the image -->
-                <div class="about-image">
-                    <div class="image-header">
-                        <h1 class="hero-title">Janco van Eeden</h1>
-                        <p class="hero-subtitle">Machine Learning Engineer | Tech Enthusiast | Lifelong Learner</p>
-                    </div>
+            <div class="image-header">
+                <h1 class="hero-title">Janco van Eeden</h1>
+                <p class="hero-subtitle">Machine Learning Engineer | Tech Enthusiast | Lifelong Learner</p>
+            </div>
 
+            <div class="about-content">
+                <!-- Image column -->
+                <div class="about-image">
                     <img src="images/pfp.jpg" alt="Profile picture" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
 
                     <div class="image-placeholder">
@@ -92,7 +92,10 @@
                         I hold a Bachelor of Engineering (Computer Engineering), specialising in a real-world application of machine learning and computer vision optimised for resource-constrained microcontrollers. Motivated by the field's rapid progress, I am eager to learn, study, and apply engineering techniques.
                     </p>
                     <p>
-                        I completed a Master of Engineering degree in 2025. As a member of the <a href="https://www.up.ac.za/" target="_blank">University of Pretoria</a>'s Intelligent Systems Research Group, my research focused on developing innovative algorithms in computer vision, particularly 3D object detection with novel view synthesis pipelines.
+                        I completed a Master of Engineering degree in 2025. As a member of the <a href="https://www.up.ac.za/" target="_blank">University of Pretoria</a>'s Intelligent Systems Research Group, my research focused on 3D object detection with novel view synthesis pipelines.
+                    </p>
+                    <p>
+                        I am currently working on a real-time computer vision project at <a href="https://www.maturusdigital.com/" target="_blank">Maturus Digital</a>, where I am responsible for developing and optimising machine learning algorithms for real-world applications.
                     </p>
                 </div>
             </div>
@@ -115,7 +118,7 @@
                         </div>
                     </div>
                     <h3>Programming</h3>
-                    <p>Python, C/C++, Java, Delphi, ASM, SQL, Swift</p>
+                    <p>Python &middot; C/C++ &middot; Java &middot; Delphi &middot; ASM &middot; SQL &middot; Swift</p>
                     <div class="progress-bar">
                         <div class="progress-fill" data-progress="25"></div>
                     </div>
@@ -134,7 +137,7 @@
                         </div>
                     </div>
                     <h3>Frameworks</h3>
-                    <p>PyTorch, VS Code, Git, Docker, Qt, Tensorflow</p>
+                    <p>PyTorch &middot; PostgreSQL &middot; Git &middot; Docker &middot; Qt &middot; Tensorflow</p>
                     <div class="progress-bar">
                         <div class="progress-fill" data-progress="50"></div>
                     </div>
@@ -146,15 +149,20 @@
                             <img src="images/microcontroller.svg" alt="Microcontroller logo" class="skill-logo" loading="lazy">
                         </div>
                         <div class="skill-icon">
-                            <img src="images/camera.svg" alt="Camera logo" class="skill-logo" loading="lazy">
+                            <img src="images/camera.svg" alt="Camera logo" class="skill-logo theme-icon-light" loading="lazy">
+                            <img src="images/camera_dark.svg" alt="Camera logo" class="skill-logo theme-icon-dark" loading="lazy">
                         </div>
                     </div>
                     <h3>Hardware</h3>
-                    <p>Microcontrollers, FPGAs, actuators, sensors</p>
+                    <p>Embedded systems &middot; Sensors &middot; FPGAs &middot; Actuators </p>
                     <div class="progress-bar">
                         <div class="progress-fill" data-progress="75"></div>
                     </div>
                 </div>
+            </div>
+
+            <div class="pixel-anim-container">
+                <canvas id="pixel-anim" width="219" height="114"></canvas>
             </div>
         </div>
     </section>
@@ -163,7 +171,7 @@
         <div class="container">
             <h2 class="section-title">My Projects</h2>
             <p class="section-description">
-                A collection of projects I have built during my studies.
+                A collection of projects I have built.
             </p>
 
             <div class="projects-grid">
@@ -190,16 +198,6 @@
                         <a href="rad-det/index.html" class="btn btn-primary btn-demo" target="_blank" rel="noopener noreferrer">
                             Launch Rad-Det Viewer →
                         </a>
-                    </div>
-                    <div class="project-section">
-                        <div class="project-software-grid">
-                            <div class="software-item">
-                                <img src="images/python.svg" alt="Python logo" class="software-logo" loading="lazy">
-                            </div>
-                            <div class="software-item">
-                                <img src="images/pytorch.svg" alt="PyTorch logo" class="software-logo" loading="lazy">
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -254,16 +252,6 @@
                             <img src="images/classroom_1.webp" alt="Classroom tracking view 1" class="thumbnail-small" tabindex="0" role="button">
                             <img src="images/classroom_2.webp" alt="Classroom tracking view 2" class="thumbnail-small" tabindex="0" role="button">
                             <img src="images/classroom_3.webp" alt="Classroom tracking view 3" class="thumbnail-small" tabindex="0" role="button">
-                        </div>
-                    </div>
-                    <div class="project-section">
-                        <div class="project-software-grid">
-                            <div class="software-item">
-                                <img src="images/python.svg" alt="Python logo" class="software-logo" loading="lazy">
-                            </div>
-                            <div class="software-item">
-                                <img src="images/c.svg" alt="C logo" class="software-logo" loading="lazy">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -325,7 +313,8 @@
                     <a href="https://github.com/jancoveeden" target="_blank" aria-label="GitHub">GitHub</a>
                     <a href="https://www.linkedin.com/in/jancoveeden-9818a8231/" target="_blank"
                         aria-label="LinkedIn">LinkedIn</a>
-                    <a href="https://x.com/jancoveeden" target="_blank" aria-label="Twitter">Twitter</a>
+                    <a href="https://x.com/jancoveeden" target="_blank" aria-label="Twitter">X</a>
+                    <a href="https://www.youtube.com/@jancovaneeden" target="_blank" aria-label="YouTube">YouTube</a>
                 </div>
             </div>
         </div>
